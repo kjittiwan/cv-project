@@ -1,23 +1,29 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from 'react';
+import Form from './components/Form'
+import MockCV from './components/MockCV'
 
 function App() {
+  const [personalData, setPersonalData] = useState({
+    userName: '',
+    title: '',
+    phone: '',
+    email: '',
+    location: '',
+    description: ''
+  })
+  function handleChange(e) {
+    const {name, value} = e.target;
+    setPersonalData(prevState => {
+      return {
+        ...prevState,
+        [name]: value
+      }
+    })
+  }
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <Form personalData={personalData} handleChange={handleChange}/>
+      <MockCV personalData={personalData} />
     </div>
   );
 }
